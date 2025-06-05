@@ -122,14 +122,26 @@ class Queue{
         }
 };
 //reverse a queue using temporary queues (can be used for smaller sized queues)
-void reverseQueue(Queue* q1){
+void reverseQueue(Queue* q1) {
     Queue* q2 = new Queue;
-    Queue* q3 =  new Queue;
-    while(!q1->isEmpty()){
-        q2->enqueue(q1->dequeue());
+    Queue* q3 = new Queue;
+    int size = q1->Count();
+    int count =0 ;
+    int temp = 0;
+    while(count!=size){
+        for(int i=1;i<size;i++){
+            q2->enqueue(q1->dequeue());
+        }
+        temp = q1->dequeue();
+        q3->enqueue(temp);
+        q1->enqueue(temp);
+        while(!q2->isEmpty()){
+            q1->enqueue(q2->dequeue());
+        }
+        count++;
     }
-    while(!q2->isEmpty()){
-        q3->enqueue(q2->dequeue());
+    while(!q1->isEmpty()){
+        q1->dequeue();
     }
     while(!q3->isEmpty()){
         q1->enqueue(q3->dequeue());
@@ -215,7 +227,7 @@ int main(){
                 break;
             case 12:
                 leave = true;
-                std::cout<< "Bye1"<<std::endl;
+                std::cout<< "Bye!"<<std::endl;
                 break;
         }
     }
